@@ -8,32 +8,29 @@ if(isset($_POST['register_btn'])){
   $username = $_POST['username'];
   $email = $_POST['email'];
   $password = $_POST['password'];
-  //$password2 = $_POST['password2'];
-
-//if ($password == $password2) {
-  //create user
-  //$password =md5($password);
-  $sql = "INSERT INTO users (username, email, password) VALUES ('$username','$email','$password')";
-  // $run = mysqli_query($db, $sql);
-  //$stmt = $mysqli->prepare($InsertStatement);
-  //$stmt->execute();
-  //$result = $stmt->get_result();
-  // $outp = $result->fetch_all();
-
-  if (mysqli_query($mysqli, $sql)) {
-    echo "New record created successfully";
-    header("Location: login.php"); 
-    echo "Error: " . $sql . "<br>" . mysqli_error( $sql);
-}
+  //$password_hash = password_hash($password,PASSWORD_BCRYPT);
+  //print_r($password_hash);
 
 
+  $FetchStatement = "SELECT id FROM users WHERE username = '$username'";
+  $stmt = $conn->prepare($FetchStatement);
+  $stmt->execute();
+  $result = $stmt->get_result();
 
- // print_r($result);
- // echo "New User Created";
-//}// else {
-  //echo "Passwords didnot match\n";
-//}
-
+  $count = $result->num_rows;
+  if($count >= 1){
+    echo "Username already exists";
+  }else{
+   //$sql = "INSERT INTO users (username, email, password_hash) VALUES ('$username','$email','$password_hash')";
+   $sql = "INSERT INTO users (username, email, password) VALUES ('$username','$email','$password')";
+    if (mysqli_query($mysqli, $sql)) {
+      echo "New record created successfully";
+      header("Location: login.php"); 
+      echo "Error: " . $sql . "<br>" . mysqli_error( $sql);
+  }
+  }
 }
 
 ?>
+
+  
