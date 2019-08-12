@@ -8,15 +8,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username =  $_POST['username'];
     $password =  $_POST['password'];
 
+
     $FetchStatement = "SELECT id FROM users WHERE username = '$username' and password = '$password'";
     $stmt = $conn->prepare($FetchStatement);
     $stmt->execute();
     $result = $stmt->get_result();
-    //var_dump($result);
-    //exit;
-    // $result = mysqli_query($db, $sql);
-    // $row = mysqli_fetch_array($result);
-    // $active = $row['active'];
+    
 
     $count = $result->num_rows;
     // print_r($result);
@@ -51,6 +48,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div>Password</div>
         <input type="password" name="password" class="box" /><br /><br />
         <input type="submit" value=" Submit " /><br />
+        <p>
+          <a href="reset_password.php">Reset password</a>
+        </p>
         <p>
             Dont have an account? <a href="registration.php">Sign up</a>
         </p>
