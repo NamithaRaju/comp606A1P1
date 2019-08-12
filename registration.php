@@ -40,7 +40,7 @@ require 'signup.php';
          </tr>
       </table>
       <p>
-  		Already a member? <a href="login.php">Sign in</a>
+  		Already a member? <a href="login.php">Sign in/ Login</a>
   	   </p>
    </form>
 </body>
